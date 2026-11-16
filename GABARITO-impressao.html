@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Gabarito — Aula 2 (A05 Injection + A02 Security Misconfiguration)</title>
+<style>
+  body{font:13px/1.45 system-ui,Segoe UI,Arial,sans-serif;color:#111;max-width:980px;margin:24px auto;padding:0 16px}
+  h1{font-size:19px;margin:0 0 4px} h2{font-size:15px;margin:18px 0 6px;border-bottom:2px solid #333;padding-bottom:3px}
+  .warn{color:#b00;font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:8px 0}
+  th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#eee} code{background:#f2f2f2;padding:1px 4px;border-radius:3px;font-family:ui-monospace,Consolas,monospace}
+  .flag{font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+  .no{width:22px;text-align:center} .pt{width:42px;text-align:center}
+  @media print{body{margin:0} a{color:#000;text-decoration:none}}
+</style>
+</head>
+<body>
+<h1>🎓 Gabarito — Portal Acadêmico IFAC · Aula 2</h1>
+<p>OWASP Top 10 2025 — <strong>A05 Injection</strong> + <strong>A02 Security
+Misconfiguration</strong>. 11 missões · 1340 pontos. <span class="warn">Material
+do professor — não distribuir aos alunos.</span></p>
+
+<h2>A05 — Injection</h2>
+<table>
+<tr><th class="no">#</th><th>Missão</th><th>Onde / Como explorar</th><th>Flag</th><th class="pt">Pts</th><th>CWE</th></tr>
+<tr><td class="no">1</td><td>SQLi: bypass de login</td>
+    <td><code>login.php</code> — usuário <code>admin' --</code></td>
+    <td class="flag">FLAG{sqli_login_bypass_or_1_eq_1}</td><td class="pt">120</td><td>89, 564, 943</td></tr>
+<tr><td class="no">2</td><td>SQLi: UNION extrai dados</td>
+    <td><code>busca.php</code> — <code>' UNION SELECT usuario, senha FROM usuarios --</code></td>
+    <td class="flag">FLAG{sqli_union_vazou_o_hash}</td><td class="pt">150</td><td>89, 200</td></tr>
+<tr><td class="no">3</td><td>XSS refletido</td>
+    <td><code>busca.php?q=&lt;script&gt;alert(1)&lt;/script&gt;</code></td>
+    <td class="flag">FLAG{xss_refletido_na_busca}</td><td class="pt">100</td><td>79, 80</td></tr>
+<tr><td class="no">4</td><td>XSS armazenado</td>
+    <td><code>mural.php</code> — recado com <code>&lt;img src=x onerror=alert(1)&gt;</code></td>
+    <td class="flag">FLAG{xss_armazenado_no_mural}</td><td class="pt">130</td><td>79, 116</td></tr>
+<tr><td class="no">5</td><td>Command Injection</td>
+    <td><code>diagnostico.php</code> — host <code>127.0.0.1; cat flag_cmd.txt</code></td>
+    <td class="flag">FLAG{command_injection_no_ping}</td><td class="pt">150</td><td>78, 77</td></tr>
+<tr><td class="no">6</td><td>XXE</td>
+    <td><code>importar.php</code> — <code>&lt;!ENTITY xxe SYSTEM "file://…/storage/flag_xxe.txt"&gt;</code></td>
+    <td class="flag">FLAG{xxe_leu_arquivo_do_servidor}</td><td class="pt">150</td><td>611, 827, 776</td></tr>
+</table>
+
+<h2>A02 — Security Misconfiguration</h2>
+<table>
+<tr><th class="no">#</th><th>Missão</th><th>Onde / Como explorar</th><th>Flag</th><th class="pt">Pts</th><th>CWE</th></tr>
+<tr><td class="no">7</td><td>Credencial de fábrica</td>
+    <td><code>admin-legado/</code> — login <code>admin</code> / <code>admin123</code></td>
+    <td class="flag">FLAG{credencial_de_fabrica_no_console}</td><td class="pt">120</td><td>798, 1392, 1188</td></tr>
+<tr><td class="no">8</td><td>Erro verboso</td>
+    <td><code>exportar.php?col=xyz</code> — stack trace + segredo</td>
+    <td class="flag">FLAG{stack_trace_vazou_segredo}</td><td class="pt">110</td><td>209, 497, 756</td></tr>
+<tr><td class="no">9</td><td>Modo debug exposto</td>
+    <td><code>status.php?debug=1</code></td>
+    <td class="flag">FLAG{modo_debug_exposto}</td><td class="pt">100</td><td>489, 16, 215</td></tr>
+<tr><td class="no">10</td><td>CORS liberado</td>
+    <td><code>api/relatorio.php</code> com <code>Origin:</code> qualquer + credenciais</td>
+    <td class="flag">FLAG{cors_liberou_geral}</td><td class="pt">120</td><td>942, 346</td></tr>
+<tr><td class="no">11</td><td>Headers ausentes (clickjacking)</td>
+    <td><code>headers.php</code> + isca <code>clickjack_poc.html</code></td>
+    <td class="flag">FLAG{sem_x_frame_options_clickjacking}</td><td class="pt">90</td><td>1021, 693, 16</td></tr>
+</table>
+
+<p style="margin-top:14px"><strong>Correções:</strong> ligue o <strong>MODO
+SEGURO</strong> (botão no topo) e repita cada payload — todos devem falhar.
+Detalhes por missão em <code>ROTEIRO-PROFESSOR.md</code>.</p>
+</body>
+</html>

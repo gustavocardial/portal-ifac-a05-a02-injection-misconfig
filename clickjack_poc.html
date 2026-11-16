@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oferta imperdível!! — (isca de clickjacking)</title>
+<style>
+  body{font:15px/1.5 system-ui,Arial;background:#140f12;color:#eee;margin:0;padding:24px}
+  .wrap{max-width:760px;margin:0 auto}
+  .fake{background:#2a1020;border:1px solid #803;border-radius:12px;padding:20px;margin-bottom:16px}
+  .stage{position:relative;border:1px dashed #555;border-radius:12px;overflow:hidden}
+  iframe{width:100%;height:420px;border:0;opacity:.55}
+  .lure{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);
+        background:#e11d48;color:#fff;padding:14px 22px;border-radius:10px;
+        font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+  .verdict{margin-top:16px;padding:12px;border-radius:8px;font-family:ui-monospace,monospace}
+  .bad{background:#2a1020;border:1px solid #e11d48;color:#ffd0dc}
+  .good{background:#05281a;border:1px solid #2ecc71;color:#7bffb0}
+  code{background:#000;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="fake">
+    <h1>🎁 Você ganhou um brinde do campus!</h1>
+    <p>Clique em “Resgatar” abaixo. (Esta página é a <strong>isca</strong>: ela tenta
+       embutir o portal num <code>&lt;iframe&gt;</code> transparente por cima do botão —
+       é assim que o <strong>clickjacking</strong> funciona.)</p>
+  </div>
+
+  <div class="stage">
+    <div class="lure">RESGATAR BRINDE →</div>
+    <!-- Tenta enquadrar o portal. Ajuste o caminho se instalou em outra pasta. -->
+    <iframe id="alvo" src="index.php"></iframe>
+  </div>
+
+  <div id="veredito" class="verdict bad">Testando se o portal pode ser enquadrado…</div>
+</div>
+
+<script>
+// Se o portal NÃO envia X-Frame-Options / CSP frame-ancestors, o iframe carrega
+// e o clickjacking é viável (MODO VULNERÁVEL). Em MODO SEGURO, o navegador
+// recusa o enquadramento e o onload não dispara (ou o quadro fica em branco).
+var carregou = false;
+var frame = document.getElementById('alvo');
+var v = document.getElementById('veredito');
+frame.addEventListener('load', function(){ carregou = true; });
+setTimeout(function(){
+  if (carregou) {
+    v.className = 'verdict bad';
+    v.innerHTML = '⚠️ O portal FOI enquadrado — clickjacking possível. ' +
+      'Abra <code>headers.php</code> no portal para pegar a flag ' +
+      '<code>FLAG{sem_x_frame_options_clickjacking}</code>.';
+  } else {
+    v.className = 'verdict good';
+    v.textContent = '✔ O portal recusou o enquadramento (MODO SEGURO). Clickjacking bloqueado.';
+  }
+}, 1500);
+</script>
+</body>
+</html>

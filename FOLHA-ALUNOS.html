@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Folha de Missões — Aula 2 (Injection + Security Misconfiguration)</title>
+<style>
+  body{font:13px/1.5 system-ui,Segoe UI,Arial,sans-serif;color:#111;max-width:980px;margin:24px auto;padding:0 16px}
+  h1{font-size:19px;margin:0 0 2px} h2{font-size:15px;margin:16px 0 6px;border-bottom:2px solid #333;padding-bottom:3px}
+  .sub{color:#555;margin:0 0 10px}
+  table{width:100%;border-collapse:collapse;margin:8px 0}
+  th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#eee}
+  .no{width:22px;text-align:center}.pt{width:42px;text-align:center}
+  .anota{min-width:150px}
+  code{background:#f2f2f2;padding:1px 4px;border-radius:3px;font-family:ui-monospace,Consolas,monospace}
+  .box{border:1px solid #bbb;border-radius:6px;padding:8px 10px;margin:10px 0;background:#fafafa}
+  @media print{body{margin:0}}
+</style>
+</head>
+<body>
+<h1>🎓 Folha de Missões — Portal Acadêmico IFAC · Aula 2</h1>
+<p class="sub">OWASP Top 10 2025 — A05 Injection + A02 Security Misconfiguration.
+Encontre a falha, capture a <code>FLAG{...}</code> e envie no <code>placar.php</code>.</p>
+
+<div class="box"><strong>Equipe / nome:</strong> ______________________________
+&nbsp;&nbsp; <strong>Acesso:</strong> http://<em>&lt;IP-do-professor&gt;</em>/aula02/
+&nbsp;&nbsp; Contas: <code>aluno1/123</code>, <code>aluno2/bruno</code>, <code>aluno3/senha</code>.</div>
+
+<h2>A05 — Injection</h2>
+<table>
+<tr><th class="no">#</th><th>Missão</th><th>Onde começar</th><th>Dica</th><th class="pt">Pts</th><th class="anota">Flag (anote)</th></tr>
+<tr><td class="no">1</td><td>Bypass de login</td><td><code>login.php</code></td><td>e se o usuário “comentar” o resto da consulta?</td><td class="pt">120</td><td></td></tr>
+<tr><td class="no">2</td><td>Extrair dados do banco</td><td><code>busca.php</code></td><td>a busca devolve 2 colunas… <code>UNION</code>?</td><td class="pt">150</td><td></td></tr>
+<tr><td class="no">3</td><td>Script na busca</td><td><code>busca.php</code></td><td>o que você digita volta para a página?</td><td class="pt">100</td><td></td></tr>
+<tr><td class="no">4</td><td>Script que fica salvo</td><td><code>mural.php</code></td><td>e se o recado tiver HTML?</td><td class="pt">130</td><td></td></tr>
+<tr><td class="no">5</td><td>Comando no servidor</td><td><code>diagnostico.php</code></td><td>um host só? ou dá pra encadear?</td><td class="pt">150</td><td></td></tr>
+<tr><td class="no">6</td><td>Ler arquivo via XML</td><td><code>importar.php</code></td><td>entidades externas…</td><td class="pt">150</td><td></td></tr>
+</table>
+
+<h2>A02 — Security Misconfiguration</h2>
+<table>
+<tr><th class="no">#</th><th>Missão</th><th>Onde começar</th><th>Dica</th><th class="pt">Pts</th><th class="anota">Flag (anote)</th></tr>
+<tr><td class="no">7</td><td>Senha que veio de fábrica</td><td><code>admin-legado/</code></td><td>ninguém trocou a senha padrão…</td><td class="pt">120</td><td></td></tr>
+<tr><td class="no">8</td><td>Erro que fala demais</td><td><code>exportar.php</code></td><td>provoque um erro e leia tudo.</td><td class="pt">110</td><td></td></tr>
+<tr><td class="no">9</td><td>Modo de depuração</td><td><code>status.php</code></td><td>algum parâmetro escondido?</td><td class="pt">100</td><td></td></tr>
+<tr><td class="no">10</td><td>API aberta demais</td><td><code>api/relatorio.php</code></td><td>de quais sites dá pra ler?</td><td class="pt">120</td><td></td></tr>
+<tr><td class="no">11</td><td>Página “emoldurável”</td><td><code>headers.php</code></td><td>dá pra colocar o portal num iframe?</td><td class="pt">90</td><td></td></tr>
+</table>
+
+<p style="margin-top:12px">Total possível: <strong>1340 pontos</strong>. Boa caça! 🏴</p>
+</body>
+</html>

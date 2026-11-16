@@ -1,0 +1,8 @@
+# Cruft de editor/SO
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Config local com credenciais reais (se você criar uma) — não versionar
+config.local.php
